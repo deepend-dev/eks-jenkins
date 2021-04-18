@@ -1,0 +1,49 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: eks-jenkins
+  region: us-east-1
+
+vpc:
+  subnets:
+    private:
+      us-east-1a:
+        id: subnet-73c8203e
+      us-east-1b:
+        id: subnet-5a163306
+
+nodeGroups:
+  - name: ng-jenkins
+    instanceType: m4.large
+    desiredCapacity: 1
+    privateNetworking: true
+    iam:
+      withAddonPolicies:
+        albIngress: true
+        efs: true
+
+  - name: ng-jenkins-slave-spot
+    minSize: 0
+    maxSize: 5
+    desiredCapacity: 0
+    privateNetworking: true
+    instancesDistribution:
+      instanceTypes: ["t3.large", "m4.large", "m5.large"]
+      onDemandBaseCapacity: 0
+      onDemandPercentageAboveBaseCapacity: 0
+      spotInstancePools: 4
+    labels:
+      lifecycle: Ec2Spot
+      intent: apps
+    taints:
+      spotInstance: "true:PreferNoSchedule"
+    tags:
+      k8s.io/cluster-autoscaler/node-template/label/lifecycle: Ec2Spot
+      k8s.io/cluster-autoscaler/node-template/label/intent: apps
+      k8s.io/cluster-autoscaler/node-template/taint/spotInstance: "true:PreferNoSchedule"
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+        albIngress: true
+        efs: true
