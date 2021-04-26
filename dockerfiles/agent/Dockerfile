@@ -1,3 +1,4 @@
+# Download jenkins latest agent. Makes it capable to run terraform and awscli. With proper permissions to node IAM role of slave node, you should be able to run terraform and deploy resources.
 FROM jenkins/inbound-agent:latest
 
 ENV TERRAFORM_VERSION=0.12.30
