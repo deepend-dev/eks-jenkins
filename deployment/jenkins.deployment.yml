@@ -23,7 +23,7 @@ spec:
       serviceAccountName: jenkins
       containers:
       - name: jenkins
-        image: jenkins/jenkins:alpine
+        image: jenkins/jenkins:latest
         imagePullPolicy: IfNotPresent
         env:
         - name: JAVA_OPTS
@@ -32,6 +32,8 @@ spec:
         - containerPort: 8080
           protocol: TCP
         - containerPort: 50000
+          protocol: TCP
+        - containerPort: 389
           protocol: TCP
         volumeMounts:
         - mountPath: /var/jenkins_home

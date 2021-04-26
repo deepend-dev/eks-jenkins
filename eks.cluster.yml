@@ -29,8 +29,8 @@ nodeGroups:
     desiredCapacity: 0
     privateNetworking: true
     instancesDistribution:
-      instanceTypes: ["t3.large", "m4.large", "m5.large"]
-      onDemandBaseCapacity: 0
+      instanceTypes: ["m5.4xlarge", "m4.4xlarge", "r5.4xlarge", "r5a.4xlarge", "m5a.4xlarge", "r4.4xlarge"]
+      onDemandBaseCapacity:
       onDemandPercentageAboveBaseCapacity: 0
       spotInstancePools: 4
     labels:
@@ -44,6 +44,6 @@ nodeGroups:
       k8s.io/cluster-autoscaler/node-template/taint/spotInstance: "true:PreferNoSchedule"
     iam:
       withAddonPolicies:
-        autoScaler: true
+        autoScaler: true           # required for autoscaling to work
+        cloudWatch: true
         albIngress: true
-        efs: true

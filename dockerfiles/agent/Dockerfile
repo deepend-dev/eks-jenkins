@@ -13,3 +13,5 @@ RUN apt install -y git curl && \
     rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && ./aws/install && rm -rf awscliv2.zip && rm -rf ./aws
+
+# RUN curl "https://cacerts.digicert.com/DigiCertTLSRSASHA2562020CA1.crt.pem" -o "DigiCertTLSRSASHA2562020CA1.crt.pem"  &&  keytool -import -trustcacerts -alias Digicert -keystore /usr/local/openjdk-8/jre/lib/security/cacerts -file DigiCertTLSRSASHA2562020CA1.crt.pem -storepass changeit

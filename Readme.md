@@ -24,13 +24,15 @@ aws efs create-file-system --creation-token eks-efs
 # create mount point
 aws efs create-mount-target --file-system-id FileSystemId --subnet-id SubnetID --security-group GroupID
 
+> aws efs create-mount-target --file-system-id fs-e5778c51 --subnet-id subnet-73c8203e --security-group sg-0fe5b91c9ce301b07
+> aws efs create-mount-target --file-system-id fs-e5778c51 --subnet-id subnet-5a163306 --security-group sg-0fe5b91c9ce301b07
+
 # grab our volume handle to update our PV YAML
 aws efs describe-file-systems --query "FileSystems[*].FileSystemId" --output text
 ```
 
 kubectl create ns jenkins
 kubectl.exe apply -n jenkins -f .\storage\
-kubectl.exe apply -n jenkins -f .\deployment\
 
 For Alb -
 
@@ -100,8 +102,7 @@ Enable AutoScaler:
 4. To view log -
     kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler
 
-Configure Jenkins Kubernetes Plugin for Agent:
+    kubectl get deployment -n kube-system cluster-autoscaler
 
-1. kubectl cluster-info
 
-2.
+kubectl.exe apply -n jenkins -f .\deployment\

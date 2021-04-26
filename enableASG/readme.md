@@ -8,5 +8,6 @@
 
 3. kubectl.exe apply -f .\enableASG\cluster.autoscaler.yml
 
+kubectl patch deployment cluster-autoscaler -n kube-system  -p '{"spec":{"template":{"metadata":{"annotations":{"cluster-autoscaler.kubernetes.io/safe-to-evict": "false"}}}}}'
 4. To view log -
     kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler
