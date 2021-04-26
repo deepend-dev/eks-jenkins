@@ -33,8 +33,6 @@ spec:
           protocol: TCP
         - containerPort: 50000
           protocol: TCP
-        - containerPort: 389
-          protocol: TCP
         volumeMounts:
         - mountPath: /var/jenkins_home
           name: jenkins
